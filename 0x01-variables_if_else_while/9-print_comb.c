@@ -11,7 +11,11 @@ while (i < 58)
 {
         putchar("%d", i);
         i++;
+	if (i!=57)
 }
-putchar("\n");
+putchar(44);
+putchar(' ');
+}
+putchar('\n');
 return (0);
 }
