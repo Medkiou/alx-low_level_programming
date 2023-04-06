@@ -2,38 +2,41 @@
 #include <math.h>
 
 /**
- * is_prime_number - says if an integer is a prime number or not
- * @n: number to evaluate
+ * is_prime_helper - helper function for checking if a number is prime
+ * @n: the number to check
+ * @i: the current divisor to check
  *
- * Return: 1 if the input integer is a prime number, otherwise return 0
+ * Return: 1 if n is prime, 0 otherwise
  */
-
-int is_prime_number(int n)
+int is_prime_helper(int n, int i)
 {
-    if (n <= 1)
-    {
-        return 0; // 1 and all negative numbers are not prime
-    }
-    if (n == 2)
-    {
-        return 1; // 2 is prime
-    }
-    if (n % 2 == 0)
-    {
-        return 0; // all even numbers (except 2) are not prime
-    }
-    return is_prime_number_help(n, 3); // start checking odd divisors from 3
+    /* Base case: n is divisible by i */
+    if (n % i == 0)
+        return (0);
+    /* Base case: all divisors have been checked */
+    if (i == 2)
+        return (1);
+    /* Recursive case: check next divisor */
+    return (is_prime_helper(n, i - 1));
 }
 
-int is_prime_number_help(int n, int divisor)
+/**
+ * is_prime_number - checks if a number is prime
+ * @n: the number to check
+ *
+ * Return: 1 if n is prime, 0 otherwise
+ */
+int is_prime_number(int n)
 {
-    if (divisor > sqrt(n))
-    {
-        return 1;
-    }
-    if (n % divisor == 0)
-    {
-        return 0;
-    }
-    return is_prime_number_helper(n, divisor + 2);
+    /* Base case: n is less than or equal to 1 */
+    if (n <= 1)
+        return (0);
+    /* Base case: n is 2 or 3 */
+    if (n <= 3)
+        return (1);
+    /* Base case: n is divisible by 2 or 3 */
+    if (n % 2 == 0 || n % 3 == 0)
+        return (0);
+    /* Recursive case: check if n is divisible by odd numbers */
+    return (is_prime_helper(n, (int)sqrt(n)));
 }
